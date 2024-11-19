@@ -1,0 +1,24 @@
+node_modules
+*.log
+.nuxt
+nuxt.d.ts
+.output
+.data
+.env
+package-lock.json
+framework
+dist
+.DS_Store
+.direnv/
+# Yarn
+.yarn/cache
+.yarn/*state*
+node_modules/
+
+# Local History
+.history
+
+# VSCode
+.vscode/
+# webstorm
+.idea/

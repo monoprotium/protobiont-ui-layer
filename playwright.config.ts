@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import path from 'path';
 
+
 export default defineConfig({
     testDir: './tests',
     fullyParallel: true,
@@ -13,6 +14,7 @@ export default defineConfig({
         viewport: { width: 1280, height: 720 },
         ignoreHTTPSErrors: true,
         trace: 'on-first-retry',
+        // @ts-ignore
         chromium: {
             executablePath: path.join(process.env.PLAYWRIGHT_BROWSERS_PATH || '', 'chromium-1140/chrome-linux/chrome')
         }

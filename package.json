@@ -23,12 +23,12 @@
     "nuxt-lucide-icons": "^1.0.5",
     "typescript": "^5.6.3",
     "unocss": "^0.64.1"
-
   },
   "dependencies": {
     "@iconify/vue": "^4.1.2",
     "@nuxt/test-utils": "^3.14.4",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@types/vue": "^2.0.0",
     "@vue/test-utils": "^2.4.6",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
@@ -37,7 +37,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-vue": "^0.460.0",
-    "vitest": "^2.1.5"
+    "vitest": "^2.1.5",
+    "vue": "^3.5.13"
   },
   "packageManager": "pnpm@9.12.2"
 }

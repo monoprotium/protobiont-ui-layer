@@ -1,3 +1,25 @@
 {
-  "extends": "./.playground/.nuxt/tsconfig.json"
+  "extends": "./.playground/.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types"],
+    "types": [
+      "@nuxt/types",
+      "@types/node",
+      "vite/client",
+      "./types/components",
+      "vue/ref-macros"
+    ],
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.vue",
+    "types/**/*.d.ts"
+  ]
 }

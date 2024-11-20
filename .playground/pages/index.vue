@@ -31,7 +31,8 @@ const baseComponents = [
   'btn',
   'chatbubble',
   'checkbox',
-  'chip'
+  'chip',
+  "excerpt"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

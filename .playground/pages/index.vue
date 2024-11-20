@@ -17,7 +17,6 @@
         </div>
       </div>
 
-
     </div>
   </div>
 </template>
@@ -32,7 +31,9 @@ const baseComponents = [
   'chatbubble',
   'checkbox',
   'chip',
-  "excerpt"
+  "excerpt",
+  "flag",
+  "gototop"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

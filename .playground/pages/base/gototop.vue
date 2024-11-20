@@ -3,7 +3,7 @@
 
       <header class="mb-8">
         <h1 class="text-3xl font-bold text-white mb-2">
-          Go To Top Demo
+          Go To Top
         </h1>
       </header>
 

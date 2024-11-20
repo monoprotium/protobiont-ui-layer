@@ -34,7 +34,8 @@ const baseComponents = [
   "excerpt",
   "flag",
   "gototop",
-  "icon"
+  "icon",
+  "inputtext"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

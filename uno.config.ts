@@ -25,6 +25,7 @@ interface ClassMap {
 const safelistClasses: ClassMap = {
     "bg-el": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     "border-el": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "text-el": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     "border": ["green-500", "blue-500"],
     "h": [6],
     "min-h": [6],

@@ -38,7 +38,8 @@ const baseComponents = [
   "inputnumber",
   "inputtext",
   "inputtextarea",
-  "list"
+  "list",
+  "loader"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

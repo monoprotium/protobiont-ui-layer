@@ -35,6 +35,7 @@ const baseComponents = [
   "flag",
   "gototop",
   "icon",
+  "inputnumber",
   "inputtext",
   "inputtextarea"
 ].map((name) => ({

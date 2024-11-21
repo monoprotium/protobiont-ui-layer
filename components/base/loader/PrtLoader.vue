@@ -60,11 +60,11 @@ const opacityColor = computed(() => {
 
 const containerClasses = computed(() =>
     variants({
-        variant: props.type,
-        size: props.size,
-        color: props.color,
-    }),
-);
+      size: props.size,
+      color: props.color,
+      variant: props.type
+    })
+)
 
 const spinnerStyle = computed(() => ({
     "--border-color": opacityColor.value,

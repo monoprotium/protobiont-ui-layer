@@ -1,29 +1,28 @@
-import { cva } from "class-variance-authority";
+import { cva } from 'class-variance-authority'
+import type { LoaderType, LoaderSize, LoaderColor } from './types'
 
-export const variants = cva("relative flex items-center justify-center", {
+export const variants = cva('relative flex items-center justify-center', {
   variants: {
-    size: {
-      sm: "w-4 h-4",
-      base: "w-6 h-6",
-      lg: "w-12 h-12",
-    },
     variant: {
-      spinner: "",
-      dots: "",
-      rectangles: "",
-    },
+      spinner: '',
+      dots: '',
+      rectangles: ''
+    } as Record<LoaderType, string>,
+    size: {
+      sm: 'w-4 h-4',
+      base: 'w-6 h-6',
+      lg: 'w-12 h-12'
+    } as Record<LoaderSize, string>,
     color: {
-      primary: "text-el-7",
-      success: "text-el-3",
-      warning: "text-el-8",
-      gray: "text-gray-400",
-    },
+      primary: 'text-el-7',
+      success: 'text-el-3',
+      warning: 'text-el-8',
+      gray: 'text-gray-400'
+    } as Record<LoaderColor, string>
   },
   defaultVariants: {
-    size: "base",
-    variant: "spinner",
-    color: "gray",
-  },
-});
-
-export type LoaderVariants = VariantProps<typeof variants>;
+    variant: 'spinner',
+    size: 'base',
+    color: 'gray'
+  }
+})

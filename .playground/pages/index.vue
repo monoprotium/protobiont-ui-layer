@@ -37,7 +37,8 @@ const baseComponents = [
   "icon",
   "inputnumber",
   "inputtext",
-  "inputtextarea"
+  "inputtextarea",
+  "list"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

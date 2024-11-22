@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen bg-neutral-900  pb-36 text-gray-100">
 
-      <header class="text-center">
-        <h1 class="text-3xl font-bold mb-4">Select Component Demo</h1>
+      <header class="text-left">
+        <h1 class="text-3xl font-bold mb-4">Select</h1>
       </header>
 
       <!-- Basic Variants -->

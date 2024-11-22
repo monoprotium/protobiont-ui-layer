@@ -43,7 +43,8 @@ const baseComponents = [
   "loadingbar",
   "notice",
   "overlay",
-  "progress"
+  "progress",
+  "radio"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

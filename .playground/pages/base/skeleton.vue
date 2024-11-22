@@ -2,10 +2,8 @@
 <template>
   <div class="min-h-screen bg-neutral-900 text-gray-100">
 
-      <!-- Header -->
       <header class="text-left">
         <h1 class="text-3xl font-bold mb-4">Skeleton Component Demo</h1>
-
       </header>
 
       <!-- Basic Examples -->

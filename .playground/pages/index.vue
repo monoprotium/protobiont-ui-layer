@@ -49,7 +49,8 @@ const baseComponents = [
   "select",
   "skeleton",
   "slider",
-  "toast"
+  "toast",
+  "toggle"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

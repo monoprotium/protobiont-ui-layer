@@ -50,7 +50,8 @@ const baseComponents = [
   "skeleton",
   "slider",
   "toast",
-  "toggle"
+  "toggle",
+  "tooltip"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

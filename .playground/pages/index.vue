@@ -81,7 +81,8 @@ const compositeComponents = [
   "confirmpopup",
   "drawer",
   "elevation",
-  "filterbar"
+  "filterbar",
+  "formfield"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-neutral-900 p-8">
     <div class="flex flex-col items-center">
-      <h1 class="text-xl font-semibold text-white mb-6">Collapsible Demo</h1>
+      <h1 class="text-xl font-semibold text-white mb-6">Collapsible</h1>
 
       <div class="w-full max-w-2xl space-y-8">
         <!-- Basic Example -->

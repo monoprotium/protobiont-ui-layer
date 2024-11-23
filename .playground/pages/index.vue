@@ -75,7 +75,8 @@ const baseComponents = [
 const compositeComponents = [
   "autocomplete",
   "btngroup",
-  "uploader"
+  "uploader",
+  "collapsible"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

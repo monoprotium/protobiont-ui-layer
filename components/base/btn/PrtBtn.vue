@@ -20,6 +20,7 @@ import { buttonVariants, getButtonColors } from './variants'
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'base',
   variant: 'solid',
+  edges: 'rounded',
   disabled: false,
   square: false,
   tag: 'button',
@@ -33,6 +34,7 @@ const variantClasses = computed(() =>
     buttonVariants({
       variant: props.variant,
       size: props.size,
+      edges: props.edges,
       square: props.square,
       fullWidth: props.fullWidth,
       disabled: props.disabled,
@@ -41,7 +43,12 @@ const variantClasses = computed(() =>
 )
 
 const colorClasses = computed(() =>
-    getButtonColors(props.variant, props.color, props.disabled, props.disableFocusRing)
+    getButtonColors(
+        props.variant,
+        props.color,
+        props.disabled,
+        props.disableFocusRing
+    )
 )
 
 const buttonClasses = computed(() => [

@@ -86,7 +86,8 @@ const compositeComponents = [
   "formgroup",
   "indexbar",
   "infinitescroll",
-  "megamenu"
+  "megamenu",
+  "tabs"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

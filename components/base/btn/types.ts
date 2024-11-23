@@ -1,24 +1,13 @@
 import type { ConcreteComponent } from 'vue'
 
-export const PrtBtnVariant = {
-    solid: 'solid',
-    outline: 'outline',
-    ghost: 'ghost',
-} as const
-
-export const PrtBtnSize = {
-    sm: 'sm',
-    base: 'base',
-    lg: 'lg',
-} as const
-
-export type PrtBtnVariant = (typeof PrtBtnVariant)[keyof typeof PrtBtnVariant]
-export type PrtBtnSize = (typeof PrtBtnSize)[keyof typeof PrtBtnSize]
-
+export type PrtBtnVariant = 'solid' | 'outline' | 'ghost'
+export type PrtBtnSize = 'sm' | 'base' | 'lg'
+export type PrtBtnEdges = 'square' | 'rounded' | 'circle'
 
 export interface ButtonProps {
     variant?: PrtBtnVariant
     size?: PrtBtnSize
+    edges?: PrtBtnEdges
     disabled?: boolean
     square?: boolean
     tag?: string | ConcreteComponent

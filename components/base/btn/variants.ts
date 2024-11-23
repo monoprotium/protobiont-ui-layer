@@ -1,12 +1,12 @@
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 import type { PrtBtnVariant } from './types'
 
-const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors duration-150 rounded text-center'
+const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors duration-150 text-center'
 
 export const buttonVariants = cva(baseStyles, {
     variants: {
         variant: {
-            solid: undefined,
+            solid: '',
             outline: 'bg-transparent border-2',
             ghost: 'bg-transparent',
         },
@@ -15,35 +15,26 @@ export const buttonVariants = cva(baseStyles, {
             base: 'text-base py-2 px-4',
             lg: 'text-base py-3 px-6',
         },
-        square: { true: undefined },
+        edges: {
+            square: '',
+            rounded: 'rounded',
+            circle: 'rounded-full',
+        },
+        square: { true: '' },
         fullWidth: { true: 'w-full' },
         disabled: { true: 'opacity-50 cursor-not-allowed' },
         loading: { true: 'cursor-wait' },
     },
-    compoundVariants: [
-        {
-            square: true,
-            size: 'sm',
-            class: 'p-1.5 min-w-8.5',
-        },
-        {
-            square: true,
-            size: 'base',
-            class: 'p-2 min-w-10.5',
-        },
-        {
-            square: true,
-            size: 'lg',
-            class: 'p-4 min-w-14.5',
-        },
-    ],
     defaultVariants: {
         variant: 'solid',
         size: 'base',
+        edges: 'rounded'
     }
 })
 
-export type ButtonVariants = VariantProps<typeof buttonVariants>
+type ButtonStyleMap = {
+    [K in PrtBtnVariant]: string[]
+}
 
 export const getButtonColors = (
     variant: PrtBtnVariant,
@@ -61,7 +52,7 @@ export const getButtonColors = (
         'focus:ring-opacity-50'
     ]
 
-    const variantStyles = {
+    const variantStyles: ButtonStyleMap = {
         solid: [color, 'text-white', 'hover:bg-opacity-90'],
         outline: [`border-${baseColor}`, `text-${baseColor}`, `hover:bg-${baseColor}`, 'hover:text-white'],
         ghost: [`text-${baseColor}`, `hover:bg-${baseColor}`, 'hover:text-white']

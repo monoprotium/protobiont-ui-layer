@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-neutral-900 p-8">
     <div class="max-w-md mx-auto">
-      <h1 class="text-xl font-semibold text-white mb-6">Autocomplete Demo</h1>
+      <h1 class="text-xl font-semibold text-white mb-6">Autocomplete</h1>
 
       <PrtAutocomplete
           v-model="selected"

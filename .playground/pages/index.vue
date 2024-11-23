@@ -80,7 +80,8 @@ const compositeComponents = [
   "combobox",
   "confirmpopup",
   "drawer",
-  "elevation"
+  "elevation",
+  "filterbar"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

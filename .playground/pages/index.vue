@@ -83,7 +83,8 @@ const compositeComponents = [
   "elevation",
   "filterbar",
   "formfield",
-  "formgroup"
+  "formgroup",
+  "indexbar"
 ].map((name) => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

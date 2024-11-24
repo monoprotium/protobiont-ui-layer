@@ -52,7 +52,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ChevronLeft } from 'lucide-vue-next'
 import type { Language, LangSelectVariant, LangSelectSize } from '../../../components/composite/langSelect/types'
 
 const currentLanguage = ref('en')

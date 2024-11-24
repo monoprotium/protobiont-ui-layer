@@ -99,7 +99,8 @@ const compositeComponents: Component[] = [
   "lightbox",
   "splashscreen",
   "tagchipsinput",
-  "langselect"
+  "langselect",
+  "result"
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

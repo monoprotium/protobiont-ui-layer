@@ -94,7 +94,8 @@ const compositeComponents: Component[] = [
   "megamenu",
   "tabs",
   "lazyimg",
-  "lightbox"
+  "lightbox",
+  "splashscreen"
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

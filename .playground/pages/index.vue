@@ -102,7 +102,8 @@ const compositeComponents: Component[] = [
   "tagchipsinput",
   "langselect",
   "result",
-  "countdown"
+  "countdown",
+  "card"
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

@@ -109,7 +109,8 @@ const compositeComponents: Component[] = [
   "scrollbar",
   "steps",
   "priceinput",
-  "productcard"
+  "productcard",
+  "newsletterbar"
 
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),

@@ -73,7 +73,8 @@ const baseComponents: Component[] = [
   "toggle",
   "tooltip",
   "sticky",
-  "listingparams"
+  "listingparams",
+  "typography"
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),

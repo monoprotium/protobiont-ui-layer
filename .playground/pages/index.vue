@@ -7,7 +7,7 @@
         <div class="grid grid-flow-col grid-rows-8 gap-3 w-[1120px]">
           <template v-for="component in baseComponents" :key="component.name">
             <NuxtLink
-                :to="`/base/${component.path}`"
+                :to="getComponentPath('base', component.path)"
                 class="bg-neutral-800/50 hover:bg-neutral-700/50 rounded-lg px-4 py-3 flex items-center justify-between transition-colors min-w-[200px]"
             >
               <span class="text-white">{{ component.name }}</span>
@@ -22,7 +22,7 @@
         <div class="grid grid-flow-col grid-rows-8 gap-3 w-[1120px]">
           <template v-for="component in compositeComponents" :key="component.name">
             <NuxtLink
-                :to="`/composite/${component.path}`"
+                :to="getComponentPath('composite', component.path)"
                 class="bg-neutral-800/50 hover:bg-neutral-700/50 rounded-lg px-4 py-3 flex items-center justify-between transition-colors min-w-[200px]"
             >
               <span class="text-white">{{ component.name }}</span>
@@ -36,8 +36,14 @@
 </template>
 
 <script setup lang="ts">
+interface Component {
+  name: string;
+  path: string;
+}
 
-const baseComponents = [
+const getComponentPath = (type: 'base' | 'composite', path: string): string => `/${type}/${path}`;
+
+const baseComponents: Component[] = [
   'avatar',
   'badge',
   'breadcrumb',
@@ -66,13 +72,12 @@ const baseComponents = [
   "toast",
   "toggle",
   "tooltip",
-
-].map((name) => ({
+].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),
 }));
 
-const compositeComponents = [
+const compositeComponents: Component[] = [
   "autocomplete",
   "btngroup",
   "uploader",
@@ -87,8 +92,9 @@ const compositeComponents = [
   "indexbar",
   "infinitescroll",
   "megamenu",
-  "tabs"
-].map((name) => ({
+  "tabs",
+  "lazyimg"
+].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),
 }));

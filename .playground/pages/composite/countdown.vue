@@ -102,7 +102,7 @@
               @end="handleTimerEnd"
           />
           <div v-else>
-            <PrtBtn @click="restartTimer">
+            <PrtBtn @click="restartTimer"  color="bg-el-4">
               Start Again
             </PrtBtn>
           </div>
@@ -113,7 +113,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 
 
 // Calculate sale end time (24 hours from now)

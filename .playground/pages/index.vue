@@ -115,7 +115,8 @@ const compositeComponents: Component[] = [
   "layoutgrid",
   "listing",
   "gallery",
-  "modeselector"
+  "modeselector",
+  "floatingwidget"
 
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),

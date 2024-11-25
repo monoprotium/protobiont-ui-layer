@@ -98,8 +98,7 @@ export default defineConfig({
     rules: [
         // Example custom rule
         ['px-100', { 'padding-left': '100px', 'padding-right': '100px' }],
-        // Flex basis with calculated gap
-        [/^basis-1\/3-gap-4$/, () => ({ 'flex-basis': 'calc(33.333% - (2/3 * 1rem))' }),],
+
     ],
 
     // Shortcuts

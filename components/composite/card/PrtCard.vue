@@ -1,11 +1,11 @@
 <template>
   <div :class="[cardVariants({ variant, edges }), props.class]">
     <!-- Image Section -->
-    <div v-if="$slots.image" class="relative h-[220px] bg-neutral-800">
+    <div v-if="$slots.image" class="relative h-48 md:h-56 lg:h-64 overflow-hidden"> <!-- Fixed height with breakpoints -->
       <!-- Loading State -->
       <div
           v-show="isImageLoading"
-          class="absolute inset-0 z-10 flex items-center justify-center"
+          class="absolute inset-0 z-10 flex items-center justify-center bg-neutral-900"
       >
         <PrtLoader size="lg" color="primary" />
       </div>
@@ -33,20 +33,28 @@
     </div>
 
     <!-- Header Section -->
-    <div v-if="$slots.header" class="p-5 border-b border-neutral-700">
+    <div
+        v-if="$slots.header"
+        class="p-5 border-b border-neutral-700"
+    >
       <slot name="header" />
     </div>
 
     <!-- Content Section -->
-    <div :class="[
-      'p-5 flex-grow',
-      { 'space-y-4': !$slots.header }
-    ]">
+    <div
+        :class="[
+        'p-5 flex-grow',
+        { 'space-y-4': !$slots.header }
+      ]"
+    >
       <slot name="content" />
     </div>
 
     <!-- Footer Section -->
-    <div v-if="$slots.footer" class="p-4 bg-neutral-800/50 border-t border-neutral-700">
+    <div
+        v-if="$slots.footer"
+        class="p-4 bg-neutral-800/50 border-t border-neutral-700"
+    >
       <slot name="footer" />
     </div>
 
@@ -74,6 +82,7 @@ interface Props {
   loading?: boolean
   class?: string
   imageSrc?: string
+  imageAspectRatio?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -81,7 +90,8 @@ const props = withDefaults(defineProps<Props>(), {
   edges: 'square',
   loading: false,
   class: '',
-  imageSrc: ''
+  imageSrc: '',
+  imageAspectRatio: '56.25%' // 16:9 by default
 })
 
 const isImageLoading = ref(true)

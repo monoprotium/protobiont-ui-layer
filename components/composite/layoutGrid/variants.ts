@@ -12,10 +12,10 @@ export const gridVariants = cva('grid w-full auto-rows-auto items-start', {
     },
     gap: {
       none: 'gap-0',
+      xs: 'gap-1',
       sm: 'gap-2',
       md: 'gap-4',
       lg: 'gap-6',
-      xl: 'gap-8',
     },
     responsive: {
       true: 'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3',

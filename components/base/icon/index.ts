@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-
+export { default as PrtIcon } from './PrtIcon.vue';
 export type IconSize = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | "4xl"
 
 export interface IconProps {
@@ -14,3 +14,4 @@ declare module '#app' {
         iconCache: Map<string, Component>
     }
 }
+

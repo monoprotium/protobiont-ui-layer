@@ -75,6 +75,7 @@ const baseComponents: Component[] = [
   "sticky",
   "listingparams",
   "typography"
+
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),
   path: name.toLowerCase(),
@@ -119,7 +120,8 @@ const compositeComponents: Component[] = [
   "floatingwidget",
   "timeline",
   "sitefooter",
-  "siteheader"
+  "siteheader",
+  "appsidebar"
 
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),

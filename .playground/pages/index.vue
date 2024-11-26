@@ -118,7 +118,8 @@ const compositeComponents: Component[] = [
   "modeselector",
   "floatingwidget",
   "timeline",
-  "sitefooter"
+  "sitefooter",
+  "siteheader"
 
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),

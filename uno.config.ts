@@ -32,9 +32,14 @@ const safelistClasses: ClassMap = {
     "p": ["0.5"]
 }
 
+// for timeline
+const extraClasses =  Array.from({ length: 21 }, (_, i) => `left-${i * 5}%`)
 // Safelist with hardcoded classes
 export const safelist: string[] = [
     "basis-1/3-gap-4",
+    ...extraClasses
+
+
 ];
 
 // Add classes from safelistClasses to the safelist
@@ -98,6 +103,9 @@ export default defineConfig({
     rules: [
         // Example custom rule
         ['px-100', { 'padding-left': '100px', 'padding-right': '100px' }],
+
+        // for timeline
+        [/^left-(\d+)%$/, ([_, n]) => ({ left: `${n}%` })]
 
     ],
 

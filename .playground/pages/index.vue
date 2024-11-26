@@ -122,7 +122,8 @@ const compositeComponents: Component[] = [
   "sitefooter",
   "siteheader",
   "appsidebar",
-  "pagelayout"
+  "pagelayout",
+  "appheader"
 
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),

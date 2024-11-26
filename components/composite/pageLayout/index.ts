@@ -1,0 +1,1 @@
+export { default as PrtPageLayout } from './PrtPageLayout.vue'

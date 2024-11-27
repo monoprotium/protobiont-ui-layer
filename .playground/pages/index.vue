@@ -127,7 +127,9 @@ const compositeComponents: Component[] = [
   "appheader",
   "appfooter",
   "formcheckout",
-  "carousel"
+  "carousel",
+  "audiorecorder",
+  "audioplayer"
 
 ].map((name): Component => ({
   name: name.charAt(0).toUpperCase() + name.slice(1),

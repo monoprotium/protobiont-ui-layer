@@ -1,10 +1,5 @@
-export type AudioRecorderVariant = 'default' | 'minimal' | 'elevated'
-export type AudioRecorderSize = 'sm' | 'base' | 'lg'
-
 export interface AudioRecorderProps {
   maxDuration?: number
-  variant?: AudioRecorderVariant
-  size?: AudioRecorderSize
   class?: string
 }
 
@@ -15,4 +10,14 @@ export interface AudioRecorderState {
   blob: Blob | null
   error: string | null
   isPlaying: boolean
+  audioPlayer: HTMLAudioElement | null
+  initializing: boolean
+  currentTime: number
+  lastKnownPosition: number
+  wasPlaying: boolean
+  recordingElapsedTime: number
+  isDragging: boolean
+  isAppended: boolean
+  seekInProgress: boolean
 }
+

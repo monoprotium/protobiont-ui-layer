@@ -8,7 +8,7 @@
     >
       <Play v-if="!isPlaying" class="bottom-buttons__icon" />
       <Pause v-else class="bottom-buttons__icon" />
-      <span class="bottom-buttons__text">
+      <span class="bottom-buttons__text hidden md:inline">
         {{ isPlaying ? 'PAUSE' : 'PLAY' }}
       </span>
     </button>
@@ -19,7 +19,7 @@
         @click.stop="$emit('stop')"
     >
       <Square class="bottom-buttons__icon" />
-      <span class="bottom-buttons__text">STOP</span>
+      <span class="bottom-buttons__text hidden md:inline">STOP</span>
     </button>
     <button
         class="bottom-buttons__button"
@@ -28,7 +28,7 @@
         @click.stop="$emit('erase')"
     >
       <Eraser class="bottom-buttons__icon" />
-      <span class="bottom-buttons__text">ERASE</span>
+      <span class="bottom-buttons__text hidden md:inline">ERASE</span>
     </button>
     <button
         class="bottom-buttons__button"
@@ -37,7 +37,7 @@
         @click.stop="$emit('append')"
     >
       <FilePlus2 class="bottom-buttons__icon" />
-      <span class="bottom-buttons__text">APPEND</span>
+      <span class="bottom-buttons__text hidden md:inline">APPEND</span>
     </button>
   </div>
 </template>
@@ -50,14 +50,14 @@ defineProps<{
   isRecording: boolean
   hasBlob: boolean
   isDragging: boolean
-}>()
+}>();
 
 defineEmits<{
   playback: []
   stop: []
   erase: []
   append: []
-}>()
+}>();
 </script>
 
 <style scoped>
@@ -66,7 +66,8 @@ defineEmits<{
 }
 
 .bottom-buttons__button {
-  @apply flex-1 bg-el-7/90 hover:bg-el-7 text-white text-xs py-1 px-2 transition-colors flex items-center justify-center gap-1.5 rounded-sm;
+  @apply flex-1 bg-el-7/90 hover:bg-el-7 text-white text-xs py-1 px-2
+  transition-colors flex items-center justify-center gap-1.5 rounded-sm;
 }
 
 .bottom-buttons__button--disabled {

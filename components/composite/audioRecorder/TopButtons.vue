@@ -3,7 +3,7 @@
     <button class="top-buttons__button" @click="$emit('record')">
       <Mic v-if="!isRecording" class="top-buttons__icon" />
       <Square v-else class="top-buttons__icon" />
-      <span class="top-buttons__text">
+      <span class="top-buttons__text hidden md:inline">
         {{ isRecording ? 'STOP' : 'RECORD' }}
       </span>
     </button>
@@ -15,7 +15,7 @@
     >
       <Pause v-if="!isPaused" class="top-buttons__icon" />
       <Play v-else class="top-buttons__icon" />
-      <span class="top-buttons__text">
+      <span class="top-buttons__text hidden md:inline">
         {{ isPaused ? 'RESUME' : 'PAUSE' }}
       </span>
     </button>
@@ -26,7 +26,7 @@
         @click="$emit('export')"
     >
       <Save class="top-buttons__icon" />
-      <span class="top-buttons__text">EXPORT</span>
+      <span class="top-buttons__text hidden md:inline">EXPORT</span>
     </button>
     <button
         class="top-buttons__button"
@@ -35,7 +35,7 @@
         @click="$emit('addToChat')"
     >
       <MessagesSquare class="top-buttons__icon" />
-      <span class="top-buttons__text">+ CHAT</span>
+      <span class="top-buttons__text hidden md:inline">+ CHAT</span>
     </button>
   </div>
 </template>
@@ -47,14 +47,14 @@ defineProps<{
   isRecording: boolean
   isPaused: boolean
   hasBlob: boolean
-}>()
+}>();
 
 defineEmits<{
   record: []
   pause: []
   export: []
   addToChat: []
-}>()
+}>();
 </script>
 
 <style scoped>
@@ -63,7 +63,8 @@ defineEmits<{
 }
 
 .top-buttons__button {
-  @apply flex-1 bg-el-7/90 hover:bg-el-7 text-white text-xs py-1 px-2 transition-colors flex items-center justify-center gap-1.5 rounded-sm;
+  @apply flex-1 bg-el-7/90 hover:bg-el-7 text-white text-xs py-1 px-2
+  transition-colors flex items-center justify-center gap-1.5 rounded-sm;
 }
 
 .top-buttons__button--disabled {
@@ -78,3 +79,4 @@ defineEmits<{
   @apply text-[11px] font-medium tracking-wide;
 }
 </style>
+

@@ -1,5 +1,5 @@
 <template>
-  <div :class="['prt-audio-recorder', props.class]">
+  <div :class="['prt-audio-recorder', props.class]" class="w-full bg-neutral-900/50 p-4" >
     <TopButtons
         :is-recording="recorderState.isRecording"
         :is-paused="recorderState.isPaused"
@@ -126,16 +126,21 @@ const handlePause = () => {
   recorderState.isPaused ? resumeRecording() : pauseRecording();
 };
 
-const handleExport = () => {
+const handleExport = async () => {
   if (recorderState.isDragging || !recorderState.blob) return;
 
-  const url = URL.createObjectURL(recorderState.blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `recording_${formatDateForFilename()}.ogg`;
-  a.click();
-  URL.revokeObjectURL(url);
-  emit('save', recorderState.blob);
+  try {
+    const url = URL.createObjectURL(recorderState.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `recording_${formatDateForFilename()}.mp3`;
+    a.click();
+    URL.revokeObjectURL(url);
+    emit('save', recorderState.blob);
+  } catch (error) {
+    console.error('Export error:', error);
+    recorderState.error = 'Failed to export recording';
+  }
 };
 
 const handleAddToChat = () => {
@@ -202,8 +207,3 @@ const formatDateForFilename = () => {
 };
 </script>
 
-<style scoped>
-.prt-audio-recorder {
-  @apply w-full bg-neutral-900/50 p-4 rounded-lg;
-}
-</style>

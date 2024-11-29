@@ -25,6 +25,7 @@
     "unocss": "^0.64.1"
   },
   "dependencies": {
+    "@breezystack/lamejs": "^1.2.7",
     "@iconify/vue": "^4.1.2",
     "@nuxt/test-utils": "^3.14.4",
     "@nuxtjs/tailwindcss": "^6.12.2",

@@ -26,6 +26,6 @@ export default defineNuxtConfig({
     ],
 
     build: {
-        transpile: ["@iconify/vue"],
+        transpile: ["@iconify/vue", "lucide-vue-next"],
     },
 });

@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const variants = cva(
-    "fixed inset-0 flex items-center justify-center transition-all",
+    "prt-overlay fixed inset-0 flex items-center justify-center transition-all",
     {
       variants: {
         color: {

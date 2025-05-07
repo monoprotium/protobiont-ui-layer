@@ -1,18 +1,15 @@
 <template>
     <div class="prt-icon" :class="rootClass">
         <Suspense>
-            <!-- Main content: Dynamically loaded icon component -->
             <component
-                :is="iconComponent"
-                v-if="iconComponent"
+                :is="loadedComponent" 
+                v-if="loadedComponent && !error"
                 :style="iconStyle"
             />
-            <!-- Loading state (via Suspense) -->
             <template #fallback>
                 <span v-if="!error" class="w-full h-full animate-pulse bg-neutral-700" />
             </template>
         </Suspense>
-        <!-- Error state -->
         <span
             v-if="error"
             class="flex items-center justify-center w-full h-full text-red-500 font-bold"
@@ -38,7 +35,6 @@ const rootClass = computed(() => [
     props.class,
 ]);
 
-// CSS variables passed down to the loaded SVG component
 const iconStyle = computed(() => ({
     "--icon-color": props.color,
     "--icon-width": "100%",
@@ -46,58 +42,65 @@ const iconStyle = computed(() => ({
 }));
 
 const error = shallowRef(false);
-const iconComponent = shallowRef<Component | null>(null);
+// Use a separate ref for the component definition to avoid conflicts with the watcher
+const loadedComponent = shallowRef<Component | null>(null);
 const nuxtApp = useNuxtApp()
 
-// Initialize global cache on Nuxt app instance if needed
 if (!nuxtApp.iconCache) {
   nuxtApp.iconCache = new Map<string, Component>()
 }
 
-// Use import.meta.glob for Vite-friendly dynamic imports from the _internal directory.
-// `eager: false` ensures dynamic loading.
 const internalIcons = import.meta.glob('./_internal/*.vue', { eager: false });
 
-watch(() => props.iconComponent, async (newName) => {
-  iconComponent.value = null; // Clear previous
-  error.value = false;
+watch(() => props.iconComponent, (newName) => {
+  // Reset state only if the name actually changes *meaningfully*
+  if (!newName) {
+      loadedComponent.value = null;
+      error.value = false;
+      return;
+  }
 
-  if (!newName) return;
+  error.value = false; // Reset error state on new attempt
 
   // Check cache first
   if (nuxtApp.iconCache.has(newName)) {
-    iconComponent.value = nuxtApp.iconCache.get(newName)!;
+    loadedComponent.value = nuxtApp.iconCache.get(newName)!;
     return;
   }
 
+  // --- Load new component ---
   const path = `./_internal/${newName}.vue`;
+  const importer = internalIcons[path];
 
-  // Check if the requested icon exists in our glob results
-  if (internalIcons[path]) {
-    try {
-      const importer = internalIcons[path];
-      // Wrap the importer with defineAsyncComponent for Suspense integration
-      const asyncComponent = defineAsyncComponent(importer as () => Promise<Component>);
-      iconComponent.value = asyncComponent;
+  if (importer) {
+     // Use defineAsyncComponent to handle loading and errors gracefully with Suspense
+     loadedComponent.value = defineAsyncComponent({
+         loader: async () => {
+            try {
+                const mod = await importer() as { default: Component };
+                // Cache the *actual* component after successful load
+                if (mod.default && !nuxtApp.iconCache.has(newName)) {
+                   nuxtApp.iconCache.set(newName, mod.default);
+                }
+                return mod.default;
+            } catch (e) {
+                console.error(`Failed to load icon module: ${newName}`, e);
+                error.value = true; // Set error state
+                return null; // Return null or an error component if defineAsyncComponent supports it
+            }
+         },
+         // Optional: Add loading/error components for defineAsyncComponent itself
+         loadingComponent: { template: '<span class="w-full h-full animate-pulse bg-neutral-700" />', setup: () => {} }, // Matches Suspense fallback
+         errorComponent: { template: '<span class="flex items-center justify-center w-full h-full text-red-500 font-bold" title="Icon load error">!</span>', setup: () => { error.value = true; } }, // Matches error display
+         delay: 50, // Optional: Show loading component after 50ms
+         timeout: 5000 // Optional: Timeout for loading
+     });
 
-      // Basic caching attempt after load (optional, relies on defineAsyncComponent resolution)
-       watch(iconComponent, (comp) => {
-          if (comp && !nuxtApp.iconCache.has(newName)) {
-            // Note: Caching the async component wrapper might have nuances.
-            nuxtApp.iconCache.set(newName, comp);
-          }
-       }, { once: true });
-
-    } catch (e) {
-      console.error(`Failed to load icon module: ${newName}`, e);
-      error.value = true;
-      iconComponent.value = null;
-    }
   } else {
     console.error(`Icon '${newName}' not found in './_internal/'. Expected path: ${path}`);
     error.value = true;
-    iconComponent.value = null;
+    loadedComponent.value = null;
   }
-}, { immediate: true }); // Run watcher immediately on component mount/prop availability
+}, { immediate: true });
 
 </script>

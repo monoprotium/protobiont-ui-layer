@@ -1,124 +1,204 @@
 <template>
   <header
-      :class="[
-      'relative w-full px-6 py-4',
-      'flex items-center justify-between',
-      'shadow-lg bg-neutral-800',
-      variant === 'minimal' ? 'py-3' : ''
+    :class="[
+      headerVariants({ variant: props.variant, size: props.size }),
+      props.bgColor || 'bg-neutral-800',
+      props.textColor || 'text-white',
+      props.class
     ]"
   >
-    <!-- Logo Section -->
+    <!-- Left Section (Logo) -->
     <div class="flex-shrink-0">
       <slot name="logo">
-        <div class="flex items-center gap-2 hover:opacity-90">
+        <NuxtLink to="/" class="flex items-center gap-2 hover:opacity-90">
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-700">
             <PrtIcon size="base" iconComponent="home" />
           </div>
-        </div>
+        </NuxtLink>
       </slot>
     </div>
 
-    <!-- Navigation -->
-    <nav class="hidden md:flex items-center gap-6">
-      <template v-for="(label, idx) in pages" :key="idx">
-        <PrtBtn
-            color="bg-neutral-700"
-            class="!hover:bg-neutral-600"
-            :class="navItemVariants({ active: false })"
-            @click="handleNavigation(label)"
-        >
-          {{ label }}
-        </PrtBtn>
-      </template>
-    </nav>
+    <!-- Middle Section (Navigation) -->
+    <div class="hidden md:flex flex-grow items-center justify-center px-6">
+      <slot name="navigation">
+        <nav class="flex items-center gap-4">
+          <!-- Structured Navigation (if props.navigation is provided) -->
+          <template v-if="props.navigation && props.navigation.length > 0">
+             <template v-for="(item, idx) in props.navigation" :key="idx">
+                <PrtBtn
+                  :color="item.active ? 'bg-neutral-700' : 'bg-transparent'"
+                  :class="[
+                    '!hover:bg-neutral-600/30',
+                     navItemVariants({ active: item.active || false })
+                  ]"
+                  :tag="item.href ? 'a' : 'button'"
+                  :href="item.href"
+                  @click="() => handleNavigation(item)"
+                  size="sm"
+                  variant="ghost"
+                  :disableFocusRing="true"
+                >
+                  <PrtIcon v-if="item.icon" :iconComponent="item.icon" size="sm" class="mr-1.5" />
+                  {{ item.label }}
+                </PrtBtn>
+             </template>
+          </template>
+          <!-- Simple Navigation (fallback if props.pages is provided) -->
+          <template v-else-if="props.pages && props.pages.length > 0">
+             <template v-for="(page, idx) in props.pages" :key="idx">
+                 <PrtBtn
+                    color="bg-neutral-700"
+                    class="!hover:bg-neutral-600"
+                    size="sm"
+                    variant="solid"
+                    :disableFocusRing="true"
+                    edges="rounded"
+                    @click="() => handleNavigation(page)"
+                  >
+                    {{ page }}
+                 </PrtBtn>
+             </template>
+          </template>
+        </nav>
+      </slot>
+    </div>
 
-    <!-- Actions -->
-    <div class="flex items-center gap-4">
-      <!-- Search -->
+    <!-- Right Section (Actions) -->
+    <div class="flex flex-shrink-0 items-center gap-3">
+       <slot name="actions">
+          <PrtBtn
+            v-if="showSearch"
+            :class="actionButtonVariants({ bgColor: variant === 'transparent' ? 'transparent' : 'default' })"
+            @click="$emit('searchClick')"
+            aria-label="Search"
+            :disableFocusRing="true"
+          >
+            <PrtIcon size="base" iconComponent="search" />
+          </PrtBtn>
+          <PrtBtn
+            v-if="showSettings"
+             :class="actionButtonVariants({ bgColor: variant === 'transparent' ? 'transparent' : 'default' })"
+            @click="$emit('settingsClick')"
+            aria-label="Settings"
+            :disableFocusRing="true"
+          >
+            <PrtIcon size="base" iconComponent="settings" />
+          </PrtBtn>
+        </slot>
       <PrtBtn
-          color="bg-neutral-700"
-          class="!hover:bg-neutral-600 !p-3 flex h-10 w-10 items-center justify-center rounded-lg text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
-          @click="$emit('iconClick', 'search')"
-      >
-        <PrtIcon size="base" iconComponent="search" />
-      </PrtBtn>
-
-      <!-- Settings -->
-      <PrtBtn
-          color="bg-neutral-700"
-          class="!hover:bg-neutral-600 !p-3 flex h-10 w-10 items-center justify-center rounded-lg text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
-          @click="$emit('iconClick', 'settings')"
-      >
-        <PrtIcon size="base" iconComponent="settings" />
-      </PrtBtn>
-
-      <!-- Mobile Menu -->
-      <PrtBtn
-          class="!hover:bg-neutral-600 !p-3 md:hidden flex h-10 w-10 items-center justify-center rounded-lg text-neutral-300 transition-colors hover:bg-neutral-800 hover:text-white"
-          :class="{ 'bg-neutral-800': isMenuOpen }"
-          @click="toggleMenu"
+        :class="[
+          actionButtonVariants({ bgColor: variant === 'transparent' ? 'transparent' : 'default' }),
+          'md:hidden'
+        ]"
+        :aria-expanded="isMenuOpen"
+        @click="toggleMenu"
+        aria-label="Toggle menu"
+        :disableFocusRing="true"
       >
         <PrtIcon
-            size="base"
-            :iconComponent="isMenuOpen ? 'x' : 'menu'"
+          size="base"
+          :iconComponent="isMenuOpen ? 'x' : 'menu'"
         />
       </PrtBtn>
     </div>
 
     <!-- Mobile Menu Panel -->
-    <div
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div
         v-show="isMenuOpen"
         :class="[
-        'absolute top-full left-0 right-0',
-        'bg-neutral-900 border-t border-neutral-800',
-        'md:hidden'
-      ]"
-    >
-      <div class="space-y-1 px-4 py-3">
-        <PrtBtn
-            v-for="(label, idx) in pages"
-            :key="idx"
-            :class="[
-            'block w-full text-left',
-            navItemVariants({ active: false })
-          ]"
-            @click="handleNavigation(label)"
-        >
-          {{ label }}
-        </PrtBtn>
+          mobileMenuVariants({ isOpen: isMenuOpen }),
+          'bg-neutral-900 border-t border-neutral-800',
+          'md:hidden'
+        ]"
+      >
+        <slot name="mobile-navigation">
+           <div class="space-y-1 px-4 py-3">
+             <template v-if="props.navigation && props.navigation.length > 0">
+                 <template v-for="(item, idx) in props.navigation" :key="`mobile-${idx}`">
+                    <PrtBtn
+                       :class="[
+                         'block w-full text-left justify-start',
+                          navItemVariants({ active: item.active || false })
+                       ]"
+                       :tag="item.href ? 'a' : 'button'"
+                       :href="item.href"
+                       @click="() => handleNavigation(item)"
+                       variant="ghost"
+                       :disableFocusRing="true"
+                     >
+                      <PrtIcon v-if="item.icon" :iconComponent="item.icon" size="sm" class="mr-2" />
+                       {{ item.label }}
+                    </PrtBtn>
+                 </template>
+             </template>
+             <template v-else-if="props.pages && props.pages.length > 0">
+                <template v-for="(page, idx) in props.pages" :key="`mobile-${idx}`">
+                    <PrtBtn
+                       color="bg-neutral-700"
+                       class="!hover:bg-neutral-600 block w-full text-left justify-start"
+                       size="sm"
+                       variant="solid"
+                       :disableFocusRing="true"
+                       edges="rounded"
+                       @click="() => handleNavigation(page)"
+                     >
+                       {{ page }}
+                    </PrtBtn>
+                </template>
+             </template>
+           </div>
+        </slot>
       </div>
-    </div>
+    </Transition>
   </header>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { navItemVariants } from './variants'
-import type { HeaderVariant } from './types'
+// Assuming PrtIcon and PrtBtn are globally registered or auto-imported
+import { headerVariants, navItemVariants, actionButtonVariants, mobileMenuVariants } from './variants'
+import type { HeaderProps, NavigationItem } from './types'
 
-interface Props {
-  pages: string[]
-  variant?: HeaderVariant
-}
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<HeaderProps>(), {
   pages: () => [],
+  navigation: () => [],
   variant: 'default',
+  size: 'base',
+  bgColor: '',
+  textColor: '',
+  showSearch: true,
+  showSettings: true,
+  class: '',
 })
 
 const emit = defineEmits<{
-  (e: 'navigate', page: string): void
-  (e: 'iconClick', icon: string): void
+  (e: 'navigate', payload: string | NavigationItem): void
+  (e: 'searchClick'): void
+  (e: 'settingsClick'): void
+  (e: 'menuToggle', isOpen: boolean): void
 }>()
 
 const isMenuOpen = ref(false)
 
-const handleNavigation = (page: string) => {
-  emit('navigate', page)
+const handleNavigation = (payload: string | NavigationItem) => {
+  if (typeof payload === 'object' && payload.onClick) {
+      payload.onClick();
+  }
+  emit('navigate', payload)
   isMenuOpen.value = false
 }
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
+  emit('menuToggle', isMenuOpen.value)
 }
 </script>

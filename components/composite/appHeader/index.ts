@@ -1,3 +1,3 @@
 export * from './types';
-
-export { default as PrtAppHeaderBar } from './PrtAppHeaderBar.vue';
+export { headerVariants, navItemVariants, actionButtonVariants, mobileMenuVariants } from './variants';
+export { default as PrtAppHeader } from './PrtAppHeader.vue';

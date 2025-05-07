@@ -4,17 +4,20 @@ export type HeaderSize = 'sm' | 'base' | 'lg'
 export interface NavigationItem {
   label: string
   href?: string
-  icon?: string
+  icon?: string 
+  active?: boolean
   onClick?: () => void
 }
 
 export interface HeaderProps {
   variant?: HeaderVariant
   size?: HeaderSize
-  navigation?: NavigationItem[]
+  pages?: string[] // For simple string-based navigation
+  navigation?: NavigationItem[] 
   bgColor?: string
   textColor?: string
   showSearch?: boolean
   showSettings?: boolean
   class?: string
 }
+
